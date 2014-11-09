@@ -95,11 +95,13 @@
 
 	#nav
 	{
-		left: 500px;
+
+		float: right;
 	}
 	
 		#nav ul
 		{
+
 			display: inline-block;
 			padding: 0em 3em;
 			border-radius: 40px;
