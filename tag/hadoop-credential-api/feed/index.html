@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>hadoop credential api &#8211; Kshitij Kulshrestha</title>
+	<atom:link href="https://kshitij-kuls.com/tag/hadoop-credential-api/feed/" rel="self" type="application/rss+xml" />
+	<link>https://kshitij-kuls.com</link>
+	<description>A DREAM WITHOUT A GOAL IS JUST A DREAM</description>
+	<lastBuildDate>Sun, 04 Aug 2019 03:49:21 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>http://wordpress.com/</generator>
+
+<image>
+	<url>https://kshitijkuls.files.wordpress.com/2018/01/cropped-whatsapp-image-2018-01-04-at-21-23-55.jpeg?w=32</url>
+	<title>hadoop credential api &#8211; Kshitij Kulshrestha</title>
+	<link>https://kshitij-kuls.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<cloud domain='kshitij-kuls.com' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+<atom:link rel="search" type="application/opensearchdescription+xml" href="https://kshitij-kuls.com/osd.xml" title="Kshitij Kulshrestha" />
+	<atom:link rel='hub' href='https://kshitij-kuls.com/?pushpress=hub'/>
+	<item>
+		<title>Setting Up Hadoop Credential Provider API</title>
+		<link>https://kshitij-kuls.com/2019/08/04/setting-up-hadoop-credential-provider-api/</link>
+					<comments>https://kshitij-kuls.com/2019/08/04/setting-up-hadoop-credential-provider-api/#respond</comments>
+		
+		<dc:creator><![CDATA[Kshitij Kulshrestha]]></dc:creator>
+		<pubDate>Sun, 04 Aug 2019 03:27:50 +0000</pubDate>
+				<category><![CDATA[Blogs]]></category>
+		<category><![CDATA[Hadoop]]></category>
+		<category><![CDATA[hadoop credential provider API]]></category>
+		<category><![CDATA[hadoop credential api]]></category>
+		<guid isPermaLink="false">http://kshitij-kuls.com/?p=318</guid>
+
+					<description><![CDATA[Today, security is the main concern to everyone and when you product need to be deployed on premises there are few things which need to be provided to our application, a very basic example is database password, today industries are not ready to put them in a configuration file in cleartext format, everyone is looking... <a class="more-link" href="https://kshitij-kuls.com/2019/08/04/setting-up-hadoop-credential-provider-api/#more-318">Continue Reading &#8594;</a>]]></description>
+										<content:encoded><![CDATA[<div>
+<div class="sc-dTdPqK DYtDj">
+<div id="content" class="page view">
+<div id="main-content" class="wiki-content">
+<p>Today, security is the main concern to everyone and when you product need to be deployed on premises there are few things which need to be provided to our application, a very basic example is database password, today industries are not ready to put them in a configuration file in cleartext format, everyone is looking for encryption. Which is now commonly known as <strong>Vault</strong>.</p>
+<p>Here I&#8217;ve prepared a working vault using hadoop credential provider api.</p>
+<p><span id="more-318"></span></p>
+<h3 id="HadoopCredentialAPISetup-Passwordless"><em><strong>Passwordless</strong></em></h3>
+<p>This command will generate <code>hdfs.jceks</code> file on HDFS: [Hence no need to localise]</p>
+<div class="code panel pdl conf-macro output-block">
+<div class="codeHeader panelHeader pdl"><b>HDFS: Create alias and save password</b></div>
+<div class="codeContent panelContent pdl">
+<div>
+<div id="highlighter_73518" class="syntaxhighlighter sh-django nogutter  bash">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="code">
+<div class="container" title="Hint: double-click to select code">
+<div class="line number1 index0 alt2"><code class="bash plain">hadoop credential create db.password -value db_123 -provider jceks:</code><code class="bash plain">//hdfs/credentials/hdfs</code><code class="bash plain">.jceks</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<p>This command will generate <code>hdfs.jceks</code> file on local FS:</p>
+<div class="code panel pdl conf-macro output-block">
+<div class="codeHeader panelHeader pdl"><b>FS: Create alias and save password</b></div>
+<div class="codeContent panelContent pdl">
+<div>
+<div id="highlighter_999212" class="syntaxhighlighter sh-django nogutter  bash">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="code">
+<div class="container" title="Hint: double-click to select code">
+<div class="line number1 index0 alt2"><code class="bash plain">hadoop credential create db.password -value db_123 -provider jceks:</code><code class="bash plain">//file/credentials/file</code><code class="bash plain">.jceks</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<p>Java API to access the password:</p>
+<div class="code panel pdl conf-macro output-block">
+<div class="codeHeader panelHeader pdl"><b>Fetch password using credential API</b></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<pre class="brush: scala; title: ; notranslate">
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.security.alias.CredentialProviderFactory
+
+object HC {
+
+  def main(args: Array[String]): Unit = {
+
+//    val path = "jceks://file/home/ec2-user/example/file.jceks"
+    val path = "jceks://hdfs/credentials/hdfs.jceks"
+    val conf = new Configuration()
+
+    val provider = conf.get(path)
+    conf.set(CredentialProviderFactory.CREDENTIAL_PROVIDER_PATH, path)
+
+    val credentialProvider = CredentialProviderFactory.getProviders(conf).get(0)
+    println(credentialProvider.getAliases)
+    val password = credentialProvider.getCredentialEntry("db.password").getCredential.mkString
+
+    println(password)
+  }
+
+}</pre>
+</div>
+<div>
+<div class="sc-dTdPqK DYtDj">
+<div>
+<div id="content" class="page view">
+<div id="main-content" class="wiki-content">
+<div class="code panel pdl conf-macro output-block">
+<div class="codeHeader panelHeader pdl"><b>output</b></div>
+</div>
+<div class="code panel pdl conf-macro output-block">
+<div class="codeContent panelContent pdl">
+<div>
+<div id="highlighter_883586" class="syntaxhighlighter sh-rdark nogutter  scala">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="code">
+<div class="container" title="Hint: double-click to select code">
+<div class="line number1 index0 alt2"><code class="scala plain">[db.password, aws.secret.key.password]</code></div>
+<div class="line number2 index1 alt1"><code class="scala keyword">db_</code><code class="scala value">123</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<h3 id="HadoopCredentialAPISetup-WithPassword" class="auto-cursor-target"><em><strong>With Password</strong></em></h3>
+<ol>
+<li>
+<p class="auto-cursor-target">Setting password using environment variable</p>
+<div class="code panel pdl conf-macro output-block">
+<div class="codeHeader panelHeader pdl"><b>Set Password</b></div>
+<div class="codeContent panelContent pdl">
+<div>
+<div id="highlighter_970142" class="syntaxhighlighter sh-confluence nogutter  bash">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="code">
+<div class="container" title="Hint: double-click to select code">
+<div class="line number1 index0 alt2"><code class="bash functions">export</code> <code class="bash plain">HADOOP_CREDSTORE_PASSWORD=TEST-password@12</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>There is another option as well to put password in a file and make it available on Hadoop classpath.
+<ol>
+<li>The name of the file can be specified by `<strong>hadoop.security.credstore.java-keystore-provider.password-file`</strong> property and then Hadoop will search for this file name on classpath and then it will get the password from file.</li>
+<li>
+<p class="auto-cursor-target">
+<div class="code panel pdl conf-macro output-block">
+<div class="codeHeader panelHeader pdl"><b>HDFS: Create alias and save password</b></div>
+<div class="codeContent panelContent pdl">
+<div>
+<div id="highlighter_127786" class="syntaxhighlighter sh-django nogutter  bash">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="code">
+<div class="container" title="Hint: double-click to select code">
+<div class="line number1 index0 alt2"><code class="bash plain">hadoop credential -Dhadoop.security.credstore.java-keystore-provider.password-</code><code class="bash functions">file</code><code class="bash plain">=hdfs.jceks.password create db.password -value db_123 -provider jceks:</code><code class="bash plain">//hdfs/credentials/hdfs</code><code class="bash plain">.jceks</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<p class="auto-cursor-target"><strong><code>hdfs.jceks.password</code></strong> is the password file name.</p>
+</li>
+<li>`<strong>hadoop.security.credstore.java-keystore-provider.password-file` </strong>this property can also be the part of core-site.xml but then it will be wide visible to all the jobs working on same cluster.</li>
+</ol>
+</li>
+</ol>
+<p>Java API to access the password:</p>
+<div class="code panel pdl conf-macro output-block">
+<div class="codeHeader panelHeader pdl"><b>Fetch password using credential API</b></div>
+</div>
+<div>
+<div id="preview">
+<div>
+<pre class="brush: scala; title: ; notranslate">
+import java.io.{File, IOException}
+import java.net.{URL, URLClassLoader}
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.fs.CommonConfigurationKeysPublic
+import org.apache.hadoop.security.alias.{CredentialProvider, CredentialProviderFactory}
+import scala.util.{Failure, Success, Try}
+
+object VaultConfig extends Logger {
+
+  def getCredential(alias: String, default: Option[String] = None): String = {
+
+    Try(getCredentialProvider) match {
+      case Success(provider) =&gt; {
+        if (provider.getAliases.contains(alias)) {
+          logger.info(s"Fetching value for alias $alias from the vault")
+          provider.getCredentialEntry(alias).getCredential.mkString
+        } else {
+          throw new Exception(s"Value not found for $alias from the vault, loading from the dynamic properties")
+        }
+      }
+      case Failure(ex) =&gt; {
+        logger.error(s"Failed to load from ${Constants.VAULT_LOCATION}", ex)
+        throw new Exception(s"Failed to load from vault", ex)
+      }
+    }
+  }
+
+  private def getCredentialProvider: CredentialProvider = {
+
+    // val vaultLocation = "jceks://file/home/ec2-user/example/file.jceks"
+    val vaultLocationFile = "jceks://hdfs/credentials/hdfs.jceks"
+    val localVaultPasswordFile = new File("/credentials/hdfs.jceks.password") //Should be on local, if not then need to localise
+
+    logger.info(s"Loading vault from config $vaultLocationFile")
+    logger.info(s"Loading password from $localVaultPasswordFile")
+
+    val conf = new Configuration()
+    conf.set(CredentialProviderFactory.CREDENTIAL_PROVIDER_PATH, vaultLocationFile)
+
+    dynamicallyLoadDirToClassPath(localVaultPasswordFile.getParent)
+
+    conf.set(CommonConfigurationKeysPublic.HADOOP_SECURITY_CREDENTIAL_PASSWORD_FILE_KEY, localVaultPasswordFile.getName)
+    CredentialProviderFactory.getProviders(conf).get(0)
+  }
+
+  private def dynamicallyLoadDirToClassPath(u: String) {
+
+    try {
+      logger.info(s"Dynamically adding dir $u to the classpath")
+      val dirObj = new File(u).toURI.toURL match {
+        case o: Object =&gt; o
+        case _ =&gt; throw new Exception("impossible")
+      }
+      val method = classOf[URLClassLoader].getDeclaredMethod("addURL", classOf[URL])
+      method.setAccessible(true)
+      method.invoke(Thread.currentThread().getContextClassLoader, dirObj)
+    } catch {
+      case t: Exception =&gt; t.printStackTrace()
+        throw new IOException("Error, could not add URL to system classloader");
+    }
+  }
+}
+</pre>
+</div>
+</div>
+<div id="footer"></div>
+</div>
+<div class="code panel pdl conf-macro output-block">
+<div class="codeHeader panelHeader pdl"><em><u><strong>NOTE:</strong></u></em> You can export <strong>HADOOP_CREDSTORE_PASSWORD</strong> option to provide the password while creating vault file and then you can put this password in the file and can you use above Java API to use that file password while reading from vault.</div>
+</div>
+<p>For more details : <a class="external-link" href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/CredentialProviderAPI.html" rel="nofollow">CredentialProviderAPI link</a></p>
+</div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+<div id="likes-and-labels-container" class="ViewPage_likesAndLabelsContainer_nyS">
+<div></div>
+</div>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://kshitij-kuls.com/2019/08/04/setting-up-hadoop-credential-provider-api/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		
+		<media:content url="https://0.gravatar.com/avatar/3eb7eaa9690ab587122cc92adb65d0b7?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">kshitijk23</media:title>
+		</media:content>
+	</item>
+	</channel>
+</rss>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>classpath &#8211; Kshitij Kulshrestha</title>
+	<atom:link href="https://kshitij-kuls.com/tag/classpath/feed/" rel="self" type="application/rss+xml" />
+	<link>https://kshitij-kuls.com</link>
+	<description>A DREAM WITHOUT A GOAL IS JUST A DREAM</description>
+	<lastBuildDate>Sun, 04 Aug 2019 04:15:17 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>http://wordpress.com/</generator>
+
+<image>
+	<url>https://kshitijkuls.files.wordpress.com/2018/01/cropped-whatsapp-image-2018-01-04-at-21-23-55.jpeg?w=32</url>
+	<title>classpath &#8211; Kshitij Kulshrestha</title>
+	<link>https://kshitij-kuls.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<cloud domain='kshitij-kuls.com' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+<atom:link rel="search" type="application/opensearchdescription+xml" href="https://kshitij-kuls.com/osd.xml" title="Kshitij Kulshrestha" />
+	<atom:link rel='hub' href='https://kshitij-kuls.com/?pushpress=hub'/>
+	<item>
+		<title>Understanding the flow of classpath to run spark job on yarn</title>
+		<link>https://kshitij-kuls.com/2019/08/04/understanding-the-flow-of-classpath-to-run-spark-job-on-yarn/</link>
+					<comments>https://kshitij-kuls.com/2019/08/04/understanding-the-flow-of-classpath-to-run-spark-job-on-yarn/#respond</comments>
+		
+		<dc:creator><![CDATA[Kshitij Kulshrestha]]></dc:creator>
+		<pubDate>Sun, 04 Aug 2019 04:09:14 +0000</pubDate>
+				<category><![CDATA[Apache Spark]]></category>
+		<category><![CDATA[Blogs]]></category>
+		<category><![CDATA[Spark on Yarn]]></category>
+		<category><![CDATA[classpath]]></category>
+		<category><![CDATA[spark]]></category>
+		<category><![CDATA[yarn]]></category>
+		<guid isPermaLink="false">http://kshitij-kuls.com/?p=334</guid>
+
+					<description><![CDATA[To run a job on cluster, it&#8217;s very necessary to provide correct set of jars but it&#8217;s always challenging on clustered environment where we have to deal with lots of moving components with different set of requirements and hence it&#8217;s very important to understand the importance of classpath settings otherwise a one can land up... <a class="more-link" href="https://kshitij-kuls.com/2019/08/04/understanding-the-flow-of-classpath-to-run-spark-job-on-yarn/#more-334">Continue Reading &#8594;</a>]]></description>
+										<content:encoded><![CDATA[<p class="auto-cursor-target" style="text-align:justify;">To run a job on cluster, it&#8217;s very necessary to provide correct set of jars but it&#8217;s always challenging on clustered environment where we have to deal with lots of moving components with different set of requirements and hence it&#8217;s very important to understand the importance of classpath settings otherwise a one can land up to a never ending problem <strong>ClassNotFoundException</strong>.</p>
+<p class="auto-cursor-target" style="text-align:justify;"><strong><span id="more-334"></span><br />
+&lt;CPS&gt; </strong>Yarn would resolve this key work with <strong>&#8216;:&#8217;</strong></p>
+<p class="auto-cursor-target" style="text-align:justify;"><strong>&lt;PWD&gt; </strong>Yarn would resolve this key with the working directory.</p>
+<p style="text-align:justify;"><strong>YARN-ENV-ENTRIES</strong></p>
+<p style="text-align:justify;"><code>CLASSPATH</code>: Jars specified in this text-box would be used loaded on Yarn-Launcher class path and will be used to launch a Spark Job. This place is a way to isolate the dependencies of spark from yarn,</p>
+<p style="text-align:justify;">                       Example:</p>
+<div class="code panel pdl conf-macro output-block" style="text-align:justify;">
+<div class="codeHeader panelHeader pdl"><b>CLASSPATH</b></div>
+<div class="codeContent panelContent pdl">
+<div>
+<div id="highlighter_617751" class="syntaxhighlighter sh-confluence nogutter  bash">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="code">
+<div class="container" title="Hint: double-click to select code">
+<div class="line number1 index0 alt2"><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hive/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hive/lib/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/lib/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-hdfs/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-hdfs/lib/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-yarn/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-yarn/lib/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop/lib/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/spark/jars/</code><code class="bash plain">*</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<p class="auto-cursor-target" style="text-align:justify;">We usually need hadoop jars, scala jars and spark jars to submit a spark job.</p>
+<p class="auto-cursor-target" style="text-align:justify;"><strong>YARN-HADOOP</strong></p>
+<div class="col-md-3" style="text-align:justify;"><code>yarn.mode.hadoop.classpath</code>: This will point to the hadoop jars but it&#8217;s not required to set this if we have already set the above property.</div>
+<div class="col-md-3" style="text-align:justify;"><strong><br />
+SPARK</strong></div>
+<div class="col-md-3" style="text-align:justify;">
+<div></div>
+<div class="col-md-3"><code>spark.driver.extraClassPath</code>: We can use this property to provide jars to driver node, the hadoop jars and all the other jars which is already localised(already present on all the nodes). These jars would also be available from the start of the spark job.</div>
+<div></div>
+</div>
+<div class="col-md-3" style="text-align:justify;">
+<hr />
+</div>
+<div class="col-md-3" style="text-align:justify;">
+<div></div>
+<div class="col-md-3"><code>spark.executor.extraClassPath</code>: We can use this property to provide jars to all executor nodes, the hadoop jars and all the other jars  which is already localised(already present on all the nodes).</div>
+<div></div>
+</div>
+<div class="col-md-3" style="text-align:justify;">
+<hr />
+</div>
+<div style="text-align:justify;"></div>
+<div class="col-md-3" style="text-align:justify;"><code>spark.yarn.archive</code>: We can provide a compressed file containing jars from hdfs itself to be present on spark job class path and which is not available locally, These jars would not be available till spark context</div>
+<div class="col-md-3" style="text-align:justify;">get created<strong> so putting hadoop jars or any other jar in yarn-archive will not work in the launch of spark job and it will fail with class not found exception.</strong></div>
+<div style="text-align:justify;"></div>
+<div class="col-md-3" style="text-align:justify;">
+<div class="col-md-3">
+<hr />
+</div>
+<div></div>
+<div class="col-md-3"><code>spark.yarn.stagingDir</code>: This is used by spark to put all the jars and other files to be localised, make sure if driver fails with jar not found then please do either of this:</div>
+<div></div>
+<div><span style="color:#ffffff;">&#8212;&#8212;&#8212;</span></div>
+<div>1. Set this property with some hdfs path because it may possible it would be writing to a local node because of some default file system issue.<br />
+Example: hdfs://ip-11-0-0-189.ec2.internal:8020/user/</div>
+<div></div>
+<div><span style="color:#ffffff;">&#8212;&#8212;&#8212;</span><br />
+2. Put correct set configuration files (core-site.xml, hdfs-site.xml and other hadoop configuration files) on the classpath. If we don&#8217;t put these files on classpath while submitting the spark then spark would not know that it&#8217;s the same cluster where you are running the spark job and hence it will take long time to submit spark job.</div>
+<div></div>
+</div>
+<div class="col-md-3" style="text-align:justify;">
+<hr />
+</div>
+<div style="text-align:justify;"></div>
+<div class="col-md-3" style="text-align:justify;"><code>spark.files</code>: Any external file can be passed to spark job using this property, in our case we want hive-site.xml on the classpath to connect to metastore. Example: <code>/etc/hive/conf/hive-site.xml</code></div>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://kshitij-kuls.com/2019/08/04/understanding-the-flow-of-classpath-to-run-spark-job-on-yarn/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		
+		<media:content url="https://0.gravatar.com/avatar/3eb7eaa9690ab587122cc92adb65d0b7?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">kshitijk23</media:title>
+		</media:content>
+	</item>
+	</channel>
+</rss>

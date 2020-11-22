@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>Apache Spark &#8211; Kshitij Kulshrestha</title>
+	<atom:link href="https://kshitij-kuls.com/category/blogs/technical/apache-spark/feed/" rel="self" type="application/rss+xml" />
+	<link>https://kshitij-kuls.com</link>
+	<description>A DREAM WITHOUT A GOAL IS JUST A DREAM</description>
+	<lastBuildDate>Thu, 26 Sep 2019 02:28:16 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>http://wordpress.com/</generator>
+
+<image>
+	<url>https://kshitijkuls.files.wordpress.com/2018/01/cropped-whatsapp-image-2018-01-04-at-21-23-55.jpeg?w=32</url>
+	<title>Apache Spark &#8211; Kshitij Kulshrestha</title>
+	<link>https://kshitij-kuls.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<cloud domain='kshitij-kuls.com' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+<atom:link rel="search" type="application/opensearchdescription+xml" href="https://kshitij-kuls.com/osd.xml" title="Kshitij Kulshrestha" />
+	<atom:link rel='hub' href='https://kshitij-kuls.com/?pushpress=hub'/>
+	<item>
+		<title>Playing with joins in spark</title>
+		<link>https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/</link>
+					<comments>https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/#comments</comments>
+		
+		<dc:creator><![CDATA[Kshitij Kulshrestha]]></dc:creator>
+		<pubDate>Thu, 26 Sep 2019 02:13:03 +0000</pubDate>
+				<category><![CDATA[Apache Spark]]></category>
+		<category><![CDATA[Blogs]]></category>
+		<category><![CDATA[joins]]></category>
+		<category><![CDATA[optimization]]></category>
+		<category><![CDATA[pyspark]]></category>
+		<category><![CDATA[spark]]></category>
+		<category><![CDATA[Spark SQL]]></category>
+		<guid isPermaLink="false">http://kshitij-kuls.com/?p=366</guid>
+
+					<description><![CDATA[It&#8217;s a very common problem across whole data industry, people are struggling to reduce the time complexity, they bought big machines, they moved to spark but yet, there are few problems which can&#8217;t be solved by just using something, it requires a deeper insight to literally feel how the framework works and why it&#8217;s very... <a class="more-link" href="https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/#more-366">Continue Reading &#8594;</a>]]></description>
+										<content:encoded><![CDATA[<p style="text-align:justify;">It&#8217;s a very common problem across whole data industry, people are struggling to reduce the time complexity, they bought big machines, they moved to spark but yet, there are few problems which can&#8217;t be solved by just using something, it requires a deeper insight to literally feel how the framework works and why it&#8217;s very slow even with considerable amount of resources.</p>
+<p style="text-align:justify;">Here we&#8217;ll be discussing how spark treats a join and figure out how to join.</p>
+<p style="text-align:justify;"><span id="more-366"></span></p>
+<p style="text-align:justify;">Before we go into much detail, let&#8217;s discuss about varies strategies which spark uses to join.</p>
+<p style="text-align:justify;">There are 3 types of strategies:</p>
+<ol style="text-align:justify;">
+<li><strong>Sort-merge Join: </strong>The keys from both the sides are being sorted and then merged and then data is <strong>shuffled</strong> to bring down the same set of keys on same machine so that joining can be done.<br />
+<img data-attachment-id="371" data-permalink="https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/screenshot-2019-09-26-at-10-08-08-am/" data-orig-file="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png" data-orig-size="1046,1378" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screenshot 2019-09-26 at 10.08.08 AM" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=228" data-large-file="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=736" class=" size-full wp-image-371 aligncenter" src="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=736" alt="Screenshot 2019-09-26 at 10.08.08 AM.png" srcset="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=736 736w, https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=114 114w, https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=228 228w, https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=768 768w, https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=777 777w, https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png 1046w" sizes="(max-width: 736px) 100vw, 736px"   /></li>
+<li><strong>Broadcast-hash Join: </strong>The smallest side is being broadcasted to each node wherever the largest side of data partition resides, then the joining takes place, this eliminates the shuffling process for bigger dataset.
+<p><img data-attachment-id="372" data-permalink="https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/spark_broadcast/" data-orig-file="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png" data-orig-size="528,797" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="spark_broadcast" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png?w=199" data-large-file="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png?w=528" class="alignnone size-full wp-image-372" src="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png?w=736" alt="spark_broadcast.png" srcset="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png 528w, https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png?w=99 99w, https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png?w=199 199w" sizes="(max-width: 528px) 100vw, 528px"   /></li>
+<li><strong>Shuffle-hash Join:</strong> This is similar to the join in map reduce, it doesn&#8217;t sort the data, it simply hash the keys of both datasets and shuffle the data to the nodes by <strong>(hash mod no. of executors)</strong>.</li>
+</ol>
+<p style="text-align:justify;">When both side datasets are too big, then it&#8217;s better to use <strong>Sort-merge join</strong> or <strong>Shuffle-hash join</strong> depending on the data locality.</p>
+<p style="text-align:justify;">After spark 2.3 release, spark made Sort merge join as the default strategy which can be disabled by setting ‘<strong class="ko ma">spark.sql.join.preferSortMergeJoin</strong>’ = <strong>false</strong>.</p>
+<p style="text-align:justify;"><strong>Broadcast-hash Join</strong></p>
+<p>Best suitable when one of the dataset is small [about 1 GB]. There are 2 way of achieving this:</p>
+<ol>
+<li>By setting <strong class="ko ma">spark.sql.autoBroadcastJoinThreshold</strong>, this parameter takes value in bytes and default is 10 MB, spark check the size of dataset and it found it to be lesser than the threshold value then it will broadcast this dataset automatically to all the nodes wherever big dataset partitions reside.
+<p><strong>**</strong> Sometimes it may happen that spark may not be able to figure out the size of data correctly, which may end up in <strong>sort-merge join</strong>, so to get rid if this, one can <strong>persist</strong> the dataset on <strong>disk and memory,</strong> by doing this spark will know the actual size of data and will choose the strategy accordingly.</li>
+<li><strong>Forcing spark to broadcast</strong>, spark has also provided a functionality to broadcast a dataset forcefully, this approach is advisable only when we are sure about the data sizing.</li>
+</ol>
+<p>&nbsp;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+		
+		<media:content url="https://0.gravatar.com/avatar/3eb7eaa9690ab587122cc92adb65d0b7?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">kshitijk23</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png" medium="image">
+			<media:title type="html">Screenshot 2019-09-26 at 10.08.08 AM.png</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png" medium="image">
+			<media:title type="html">spark_broadcast.png</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Understanding the flow of classpath to run spark job on yarn</title>
+		<link>https://kshitij-kuls.com/2019/08/04/understanding-the-flow-of-classpath-to-run-spark-job-on-yarn/</link>
+					<comments>https://kshitij-kuls.com/2019/08/04/understanding-the-flow-of-classpath-to-run-spark-job-on-yarn/#respond</comments>
+		
+		<dc:creator><![CDATA[Kshitij Kulshrestha]]></dc:creator>
+		<pubDate>Sun, 04 Aug 2019 04:09:14 +0000</pubDate>
+				<category><![CDATA[Apache Spark]]></category>
+		<category><![CDATA[Blogs]]></category>
+		<category><![CDATA[Spark on Yarn]]></category>
+		<category><![CDATA[classpath]]></category>
+		<category><![CDATA[spark]]></category>
+		<category><![CDATA[yarn]]></category>
+		<guid isPermaLink="false">http://kshitij-kuls.com/?p=334</guid>
+
+					<description><![CDATA[To run a job on cluster, it&#8217;s very necessary to provide correct set of jars but it&#8217;s always challenging on clustered environment where we have to deal with lots of moving components with different set of requirements and hence it&#8217;s very important to understand the importance of classpath settings otherwise a one can land up... <a class="more-link" href="https://kshitij-kuls.com/2019/08/04/understanding-the-flow-of-classpath-to-run-spark-job-on-yarn/#more-334">Continue Reading &#8594;</a>]]></description>
+										<content:encoded><![CDATA[<p class="auto-cursor-target" style="text-align:justify;">To run a job on cluster, it&#8217;s very necessary to provide correct set of jars but it&#8217;s always challenging on clustered environment where we have to deal with lots of moving components with different set of requirements and hence it&#8217;s very important to understand the importance of classpath settings otherwise a one can land up to a never ending problem <strong>ClassNotFoundException</strong>.</p>
+<p class="auto-cursor-target" style="text-align:justify;"><strong><span id="more-334"></span><br />
+&lt;CPS&gt; </strong>Yarn would resolve this key work with <strong>&#8216;:&#8217;</strong></p>
+<p class="auto-cursor-target" style="text-align:justify;"><strong>&lt;PWD&gt; </strong>Yarn would resolve this key with the working directory.</p>
+<p style="text-align:justify;"><strong>YARN-ENV-ENTRIES</strong></p>
+<p style="text-align:justify;"><code>CLASSPATH</code>: Jars specified in this text-box would be used loaded on Yarn-Launcher class path and will be used to launch a Spark Job. This place is a way to isolate the dependencies of spark from yarn,</p>
+<p style="text-align:justify;">                       Example:</p>
+<div class="code panel pdl conf-macro output-block" style="text-align:justify;">
+<div class="codeHeader panelHeader pdl"><b>CLASSPATH</b></div>
+<div class="codeContent panelContent pdl">
+<div>
+<div id="highlighter_617751" class="syntaxhighlighter sh-confluence nogutter  bash">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="code">
+<div class="container" title="Hint: double-click to select code">
+<div class="line number1 index0 alt2"><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hive/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hive/lib/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/lib/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-hdfs/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-hdfs/lib/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-yarn/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop-yarn/lib/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/hadoop/lib/</code><code class="bash plain">*&lt;CPS&gt;</code><code class="bash plain">/opt/cloudera/parcels/CDH/lib/spark/jars/</code><code class="bash plain">*</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<p class="auto-cursor-target" style="text-align:justify;">We usually need hadoop jars, scala jars and spark jars to submit a spark job.</p>
+<p class="auto-cursor-target" style="text-align:justify;"><strong>YARN-HADOOP</strong></p>
+<div class="col-md-3" style="text-align:justify;"><code>yarn.mode.hadoop.classpath</code>: This will point to the hadoop jars but it&#8217;s not required to set this if we have already set the above property.</div>
+<div class="col-md-3" style="text-align:justify;"><strong><br />
+SPARK</strong></div>
+<div class="col-md-3" style="text-align:justify;">
+<div></div>
+<div class="col-md-3"><code>spark.driver.extraClassPath</code>: We can use this property to provide jars to driver node, the hadoop jars and all the other jars which is already localised(already present on all the nodes). These jars would also be available from the start of the spark job.</div>
+<div></div>
+</div>
+<div class="col-md-3" style="text-align:justify;">
+<hr />
+</div>
+<div class="col-md-3" style="text-align:justify;">
+<div></div>
+<div class="col-md-3"><code>spark.executor.extraClassPath</code>: We can use this property to provide jars to all executor nodes, the hadoop jars and all the other jars  which is already localised(already present on all the nodes).</div>
+<div></div>
+</div>
+<div class="col-md-3" style="text-align:justify;">
+<hr />
+</div>
+<div style="text-align:justify;"></div>
+<div class="col-md-3" style="text-align:justify;"><code>spark.yarn.archive</code>: We can provide a compressed file containing jars from hdfs itself to be present on spark job class path and which is not available locally, These jars would not be available till spark context</div>
+<div class="col-md-3" style="text-align:justify;">get created<strong> so putting hadoop jars or any other jar in yarn-archive will not work in the launch of spark job and it will fail with class not found exception.</strong></div>
+<div style="text-align:justify;"></div>
+<div class="col-md-3" style="text-align:justify;">
+<div class="col-md-3">
+<hr />
+</div>
+<div></div>
+<div class="col-md-3"><code>spark.yarn.stagingDir</code>: This is used by spark to put all the jars and other files to be localised, make sure if driver fails with jar not found then please do either of this:</div>
+<div></div>
+<div><span style="color:#ffffff;">&#8212;&#8212;&#8212;</span></div>
+<div>1. Set this property with some hdfs path because it may possible it would be writing to a local node because of some default file system issue.<br />
+Example: hdfs://ip-11-0-0-189.ec2.internal:8020/user/</div>
+<div></div>
+<div><span style="color:#ffffff;">&#8212;&#8212;&#8212;</span><br />
+2. Put correct set configuration files (core-site.xml, hdfs-site.xml and other hadoop configuration files) on the classpath. If we don&#8217;t put these files on classpath while submitting the spark then spark would not know that it&#8217;s the same cluster where you are running the spark job and hence it will take long time to submit spark job.</div>
+<div></div>
+</div>
+<div class="col-md-3" style="text-align:justify;">
+<hr />
+</div>
+<div style="text-align:justify;"></div>
+<div class="col-md-3" style="text-align:justify;"><code>spark.files</code>: Any external file can be passed to spark job using this property, in our case we want hive-site.xml on the classpath to connect to metastore. Example: <code>/etc/hive/conf/hive-site.xml</code></div>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://kshitij-kuls.com/2019/08/04/understanding-the-flow-of-classpath-to-run-spark-job-on-yarn/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		
+		<media:content url="https://0.gravatar.com/avatar/3eb7eaa9690ab587122cc92adb65d0b7?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">kshitijk23</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Apache Spark SQL</title>
+		<link>https://kshitij-kuls.com/2018/01/06/apache-spark/</link>
+					<comments>https://kshitij-kuls.com/2018/01/06/apache-spark/#respond</comments>
+		
+		<dc:creator><![CDATA[Kshitij Kulshrestha]]></dc:creator>
+		<pubDate>Sat, 06 Jan 2018 08:52:50 +0000</pubDate>
+				<category><![CDATA[Apache Spark]]></category>
+		<category><![CDATA[Blogs]]></category>
+		<category><![CDATA[Spark SQL]]></category>
+		<guid isPermaLink="false">http://kshitij-kuls.com/?p=92</guid>
+
+					<description><![CDATA[The previous systems which were developed for Big Data applications, such as MapReduce, offered a strong, but low-level procedural programming interface. By carrying up the development of the new systems for a better user experience, multiple techniques have been introduced to the relational interface, such as Pig, Hive, and Shark. These Systems used declarative queries... <a class="more-link" href="https://kshitij-kuls.com/2018/01/06/apache-spark/#more-92">Continue Reading &#8594;</a>]]></description>
+										<content:encoded><![CDATA[<div class="page" title="Page 1"></div>
+<p style="text-align:justify;">The previous systems which were developed for Big Data applications, such as MapReduce, offered a strong, but low-level procedural programming interface. By carrying up the development of the new systems for a better user experience, multiple techniques have been introduced to the relational interface, such as Pig, Hive, and Shark.</p>
+<p style="text-align:justify;"><span id="more-92"></span>These Systems used declarative queries for providing richer optimizations. To get users out of the confusion of picking up only one system (either relational systems or procedural system), Spark SQL a new model of the Spark Ecosystem has been developed for integrating relational processing with procedural API.</p>
+<p style="text-align:justify;">Spark SQL provides the facility to let users use intermix of two models. This facility is achieved by two contributions. First is the DataFrame API which is a component of Spark. DataFrame has a facility to evaluate operations in a lazy manner so that it can perform relational optimizations. Second is the Spark SQL which provides an expendable optimizer called Catalyst. This optimizer makes it easy to add optimization rules, data sources and data types for domains such as machine learning.</p>
+<p style="text-align:justify;">DataFrame API is more efficient and provides more functionality over Spark&#8217;s existing traditional APIs. This API is a collection of structured records and can be created directly from the distributed collection of objects of Spark. All the operations of Spark SQL go through the catalyst optimizer. The Optimizer uses the characteristics of the Scala programming language. Spark SQL provides a number of benefits including richer optimizations. If Spark SQL processes the SQL queries which contains Joins and Filters.</p>
+<h3>PROGRAMMING INTERFACE</h3>
+<p style="text-align:justify;">
+DataFrame API is the contribution which made possible to mix up procedural and relational processing. The SQL interface, which is provided by Spark SQL, is accessible by command line console or JDBC/ODBC.</p>
+<p style="text-align:justify;">If the user wants to interact with Spark SQL then there are multiple ways inclusive of SQL and Dataset API. The same execution engine is used for calculating the results without caring about the API/language users are using for computation. This facility allows developers to easily switch back and forth between different APIs according to the proper way to express a given transformation.</p>
+<p style="text-align:justify;">Here we discuss following interface points by which users are able to utilize the richest facilities of the Spark SQL query engine.</p>
+<p style="text-align:justify;"><em><strong>1. SQL</strong></em><br />
+One of the most technical purposes of Spark SQL is to execute SQL queries in Spark. Spark SQL behaves as a distributed query engine when a user uses its JDBC/ODBC or Spark SQL CLI to execute SQL queries. In this manner, users or applications keep in touch with Spark SQL straight away to run SQL queries, without writing any code. When SQL queries are executed by using Spark SQL CLI or over its JDBC/ODBC then DataFrame/Datasets are returned as a result.</p>
+<p style="text-align:justify;"><em><strong>2. Dataframe API</strong></em><br />
+DataFrame API is a distributed collection of rows and it is a tabular data abstraction of Spark SQL, equivalent to the tables of the relational database. Manipulation in the DataFrames is done in the same way as it is performed in native Spark RDDs [6]. For providing the optimized execution, it supports for several relational operators and it keeps track of their schema.<br />
+DataFrames are the collection of the column type. DataFrame can be built from tables (based on external data sources), from structured file formats (Parquet, Avro etc.) or from Java/Python object&#8217;s native RDD. Avro, a self-describing binary format for nested data. Parquet, a columnar file format for which we support column pruning as well as filters. These constructed DataFrames can be manipulated by using the clauses such as Where or Group By.</p>
+<p style="text-align:justify;">DataFrame can be assumed as the native RDDs because users are able to apply procedural programming because of it. It is much powerful than RDDs because of two features which are Custom Memory Management and Optimized Execution Plan. Spark&#8217;s DataFrames evaluates in a lazy manner (like RDD), so after the logical planning, It does not execute until a specific operation such as saveAs, is called by the users.</p>
+<p>To illustrate, a Scala code is written for defining DataFrame:</p>
+<pre class="brush: scala; title: ; notranslate">
+val employee = spark.table(&quot;employee&quot;)
+val average = employee. where(employee(&quot; salary &quot;) &amp;amp;amp;amp;gt; 20000)
+println(average.count())
+</pre>
+<p style="text-align:justify;">
+In this code, employee and average are DataFrames. Finally, each DataFrame reflects a logical plan (i.e. read the employee table and filter for salary &gt;20000). When Count (output operation) is called, Spark SQL constructs a physical plan to compute the final result. Some optimizations might be done like scanning of the “salary” column only if data is stored in columnar format. DataFrame supports almost all relation operations, so users can apply these operations on DataFrames by using Domain Specific Language (DSL).<br />
+<strong>Let’s understand it by the following example:</strong></p>
+<pre class="brush: scala; title: ; notranslate">
+teacher.join(subject, teacher(&quot;sub_ID&quot;) === subject (&quot;id&quot;))
+.where(teacher(&quot;gender&quot;) === &quot;male&quot;)
+.groupBy (subject (&quot;id&quot;), subject (&quot;name&quot;))
+.agg (count (&quot;name&quot;))
+</pre>
+<p style="text-align:justify;">Aside from using DSL on DataFrame for applying operations, DataFrame can also be saved as a temporary table in the system catalog. Then we can apply SQL queries to these temp tables.<br />
+<strong>Below code illustrates it:</strong></p>
+<pre class="brush: scala; title: ; notranslate">
+val averageDF = employee.where (employee (&quot;salary&quot;) &amp;amp;amp;amp;lt; 20000)
+averageDF.registerTempTable(&quot;average&quot;)
+spark.sql (&quot;SELECT count (*), avg (salary) FROM average&quot;)
+</pre>
+<p style="text-align:justify;">
+<em><strong>3. Datasets API</strong></em><br />
+The dataset is an abstraction in Spark SQL. For the result&#8217;s aspects of users, It is equivalent to DataFrame but it differs when it comes about the performance and the way in which they get executed. In other words, we can say that Dataset is an extension of DataFrame API and it is more developer friendly in comparison with DataFrame.Datasets also take the benefits of Catalyst optimizer by revealing the expressions and data fields to the SQL query planner and it also grasps the fast in-memory encoding of Tungsten.</p>
+<p style="text-align:justify;">Datasets are designed to work alongside the existing RDD, but efficiency improvement takes place when data can be represented in a structured format. A dataset object is basically a strongly type-safe API which is immutable in nature. These objects are mapped to a relational schema.</p>
+<p style="text-align:justify;">A new concept of Dataset makes it more efficient that is “encoder”. It converts between JVM objects and tabular representation. The runtime code generation mechanism is used by the encoders to construct custom bytecode for datasets during serialization and deserialization. In other side, DataFrames are transformed into Java bytecode during serialization/deserialization. Because of the presence of the Encoders, custom bytecodes are less bulky than Java bytecode. So it makes datasets more efficient than DataFrame.</p>
+<p style="text-align:justify;">Encoders keep track of the process that our data match with expected schema and provide error messages to the users before user attempt to incorrectly process a huge quantity of data. Bytecode is produced by encoders to handle off-heap data and without de-serializing an overall object, encoders provide on-demand access to each attribute. A concept of “Case Class” is used for a dataset to define the structure of the schema. The RDDs, which contain case classes, can be converted into DataFrames by using the Scala interface. All the arguments of case class are read by using reflection and these arguments become the column names.</p>
+<h3>SHUFFLING</h3>
+<p style="text-align:justify;">
+Apache Spark is a most technically challenged and an open-source big data processing engine which yields the extra benefits over Map Reduce. Spark Driver and Spark Workers are responsible for executing the tasks related to the job. The driver keeps track and controls the workflow and Workers are responsible for launching the executors for each part of the job which is submitted to the Spark Driver. RDD, Serializer, Scheduler, and Shuffling are the main components of Spark Driver. Here we discuss only shuffling in detail.</p>
+<p style="text-align:justify;">Shuffling is one of the key reasons for optimization in Spark. It is a phase of Spark Driver. It is a process of partitioning data (map side shuffle) and aggregating (reduce side shuffle) the intermediate or resultant data during the computation of the operations. Shuffling is mostly considered as a part of reducing phase. In shuffling phase, data is converted into a large number of partitions and according to the scenario, a large number of shuffle files are also created. Shuffling is basically a process to maintain a shuffle file for each partition. Normally in Spark, a number of shuffle file generated during shuffling, is <em><strong>M*R</strong></em>.</p>
+<p>Here,<br />
+<em><strong>M= total no of map tasks </strong></em><br />
+<em><strong>R= total no of reduce tasks</strong></em></p>
+<p style="text-align:justify;">By using a consolidate feature of Spark, a number of the shuffle files is equal to <em><strong>E*C*R/T</strong> </em>rather than per Map task M. Each Machine has to take care about <em><strong>C*R</strong></em> number of shuffle files in place of <em><strong>M*R</strong></em>. By using this feature, instead of generating a new file for each reducer, a group of output files is created. During the generation of the output data by map tasks, it appeals to a group of R files from this group. As soon as the map task gets finished, this group of R files is returned back to the group by the Map task. As <em><strong>C/T</strong></em> tasks are executed by every executor in a parallel fashion. After completing the foremost <em><strong>C/T</strong> </em>parallel “map” tasks, each following “map” task would reuse an existing group from this group. By doing so, no of shuffle files created here will be less than <em><strong>M*R</strong></em> no of files. Shuffling is improved in Spark by using the Sort-based technique for particular scenarios.</p>
+<p>Here,<br />
+<em><strong>E=total no of executors in cluster </strong></em><br />
+<em><strong>C=total no of cores per executor </strong></em><br />
+<em><strong>T=total no of CPUs for one task</strong></em></p>
+<p>For understanding clearly, let’s consider the shuffling on Map side and Reduce side:</p>
+<p style="text-align:justify;"><em><strong>1. Map Side Shuffle</strong></em><br />
+Every map task in Spark writes a shuffle file for each reducer. Now all <em><strong>M*R</strong></em> files have to deliver the corresponding reducer, which could produce significant overheads. So Spark provides the facility to compress the map outputs and significantly reduces the risk of occurring out-of-memory error.</p>
+<p style="text-align:justify;"><em><strong>2. Reduce Side Shuffle</strong></em><br />
+All the output data of map task come to the reduce side and each executor (which is dedicated to the reduce task) keeps the relevant data and this output data passes to all reduce task and final results are calculated at reduce side. Spark needs all shuffled data per Reduce task to settle down in memory when the Reduce task demands it. This situation occurs where the reducer task demands all the shuffled data for a GroupByKey or a ReduceByKey operation, for instance, If the memory required by a Reduce task exceeds the limit, which is allocated earlier, then an out of memory exception is thrown and the entire job gets aborted. To avoid this issue, the application must specify a high enough value for R, possibly through trial and error. So Shuffling can be comprehended as a reallocation of data among several Spark stages. It can be clarified in figure 1. &#8220;Shuffle Write&#8221; can be interpreted as a sum of all written serialized data on all executors before transmitting (normally at the extremity of a stage) and &#8220;Shuffle Read&#8221; is the total amount of reading serialized data on all executors at the starting.</p>
+<p><img loading="lazy" data-attachment-id="243" data-permalink="https://kshitij-kuls.com/2018/01/06/apache-spark/screen-shot-2561-01-17-at-10-15-28-pm-2/" data-orig-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png" data-orig-size="1110,864" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screen Shot 2561-01-17 at 10.15.28 PM" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=300" data-large-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=736" class="  wp-image-243 aligncenter" src="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=418&#038;h=326" alt="Screen Shot 2561-01-17 at 10.15.28 PM.png" width="418" height="326" srcset="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=418&amp;h=326 418w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=836&amp;h=652 836w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=150&amp;h=117 150w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=300&amp;h=234 300w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=768&amp;h=598 768w" sizes="(max-width: 418px) 100vw, 418px" /></p>
+<p style="text-align:center;"><em><strong>Shuffle Write and Shuffle Read during Shuffling</strong></em></p>
+<h3>QUERY PLANNING IN SPARK SQL</h3>
+<p style="text-align:justify;">
+Catalyst Optimizer is designed in such a way so that new optimization techniques and features can be added easily to Spark SQL, particularly for regulating various problems with big data, like with semistructured data or advanced analytics. Developers can enhance the optimizer like, by adding a data source specific rules that can push filter or aggregation into external storage systems, or support for new data types. A tree is the main datatype in a catalyst which is a collected from of node objects. These objects are immutable and can be altered by functional transformations. Spark SQL starts it’s processing either from an Abstract Syntax Tree (AST) of a SQL query or from a dataframe object. AST is computed by SQL parser and dataframe objects are returned by API. There are specific libraries for relational processing and some sets of rules which are used for tree transformation. Rules may need to execute multiple times for complete transformation of a tree. Catalyst&#8217;s tree transformation is used in different phases of query execution. The phases are: Analysis, Logical Optimization, Physical Planning, and Code Generation.</p>
+<p>Here we describe each phase:</p>
+<p><img loading="lazy" data-attachment-id="244" data-permalink="https://kshitij-kuls.com/2018/01/06/apache-spark/screen-shot-2561-01-17-at-10-15-56-pm-2/" data-orig-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png" data-orig-size="1162,766" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screen Shot 2561-01-17 at 10.15.56 PM" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=300" data-large-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=736" class="aligncenter  wp-image-244" src="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=466&#038;h=307" alt="Screen Shot 2561-01-17 at 10.15.56 PM.png" width="466" height="307" srcset="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=466&amp;h=307 466w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=932&amp;h=614 932w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=150&amp;h=99 150w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=300&amp;h=198 300w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=768&amp;h=506 768w" sizes="(max-width: 466px) 100vw, 466px" /></p>
+<p style="text-align:center;"><em><strong>Phases of query planning in Spark SQL</strong></em></p>
+<p style="text-align:justify;">Abstract Syntax Tree and Dataframe objects can have some unresolved attribute references or relations. Let’s consider a query: Select col1 from table1. In this query, the type of col1 or whether the name of col1 is correct, is not known until the parser looks up for the table1 and the tree containing unresolved references is called an “unresolved logical plan”. An analysis phase takes an unresolved plan as an input and convert it into resolved logical plan by applying some rules to analyzer.<br />
+Logical optimization is applied to the analyzed logical plan. It is a cost-based optimization. Some rules are applied during optimization on logical plans &#8211; such as constant folding, projection pruning, predicate pushdown, null propagation, Boolean expression simplification, and other rules.<br />
+Physical planning is the third phase which takes optimized logical plan as an input. In this phase, one or more physical plan is created by applying some physical operators and the best plan is selected by using cost-based optimization. Some rule-based optimizations are also applied by this phase. Beside this projection or predicate push down are also performed in this phase.<br />
+Code generation is the final phase of query optimization in which Java bytecode is generated by using a great feature of Scala programming language i.e. quasi-quote. Generated Java bytecode runs on each machine.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://kshitij-kuls.com/2018/01/06/apache-spark/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		
+		<media:content url="https://0.gravatar.com/avatar/3eb7eaa9690ab587122cc92adb65d0b7?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">kshitijk23</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=980" medium="image">
+			<media:title type="html">Screen Shot 2561-01-17 at 10.15.28 PM.png</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=980" medium="image">
+			<media:title type="html">Screen Shot 2561-01-17 at 10.15.56 PM.png</media:title>
+		</media:content>
+	</item>
+		<item>
+		<title>Apache Spark</title>
+		<link>https://kshitij-kuls.com/2018/01/04/apache-spark-2/</link>
+					<comments>https://kshitij-kuls.com/2018/01/04/apache-spark-2/#respond</comments>
+		
+		<dc:creator><![CDATA[Kshitij Kulshrestha]]></dc:creator>
+		<pubDate>Thu, 04 Jan 2018 14:04:26 +0000</pubDate>
+				<category><![CDATA[Apache Spark]]></category>
+		<category><![CDATA[Blogs]]></category>
+		<guid isPermaLink="false">http://kshitijkuls.wordpress.com/?p=4</guid>
+
+					<description><![CDATA[I started working with big data technologies in July 2014, I was having hands-on experience on map-reduce code but in late 2014.]]></description>
+										<content:encoded><![CDATA[<p style="text-align:justify;">I started working with big data technologies in July 2014, I was having hands-on experience on map-reduce code but in late 2014, I got introduced to another computing engine i.e Apache Spark, and that&#8217;s how I started with Scala since Spark itself is written in Scala. I did start with a fun data science project trying to recommend item on the basis of their attributes. This further how it gets turned into a great way of understanding the core concept of Spark and it&#8217;s programming.</p>
+<p style="text-align:justify;"><span id="more-4"></span>Later on, I did work on building Search Engine based on Syntactic Similarity, while doing this I got performance issues, I was working on 30 GB Ram machine with 12 cores in spark cluster mode, my data set was about 1 GB (not too big), but still, it was taking 1.5 hours and that&#8217;s how I started reading about tuning in spark for certain behaviours and also learned how to play with spark tasks getting created. Finally, I ended with my application working in just 10 seconds, Is&#8217;nt awesome?</p>
+<p style="text-align:justify;">Earlier in 2016, things get changed, GB becomes PT, this was my first time when I was getting introduced to such a large cluster and complex mechanisms. This tutorial is mainly about:</p>
+<ol>
+<li style="text-align:justify;"><strong>How to get started with Spark.</strong></li>
+<li><strong>Working with core functionalities of Spark SQL.</strong></li>
+<li><strong>Some troubleshooting steps.</strong></li>
+<li><strong>Tunning spark applications.</strong></li>
+</ol>
+<h2>Let&#8217;s get started</h2>
+<p>Spark provides four major components:</p>
+<ol>
+<li><a href="https://spark.apache.org/sql/">SQL and DataFrames</a></li>
+<li><a href="https://spark.apache.org/mllib/">MLlib</a> for machine learning</li>
+<li><a href="https://spark.apache.org/graphx/">GraphX</a></li>
+<li><a href="https://spark.apache.org/streaming/">Spark Streaming</a></li>
+</ol>
+<p style="text-align:justify;">The beauty of Spark is that these libraries can be combined into one spark application and hence sky is the limit, whether you want to perform Data Wrangling or you want to perform operation on streamed dataset, whether you want to apply complex algorithm design by yourself or want to use a commonly known machine learning libraries, everything is there in one single project.</p>
+<p>Clone this project to get spark ready for your system: <strong><a href="https://github.com/horizon23/spark-learning.git" rel="nofollow">https://github.com/horizon23/spark-learning.git</a></strong></p>
+<p>Examples discussed in this tutorial will also be the part of this project.</p>
+<h3><strong>Spark Session</strong></h3>
+<blockquote>
+<p style="text-align:justify;">It&#8217;s simply an entry point to get interacted with spark functionalities and getting started with spark programming.</p>
+</blockquote>
+<h4>Creating a SparkSession</h4>
+<pre class="brush: scala; title: ; notranslate">
+val spark: SparkSession = SparkSession.builder()
+.appName(&quot;Spark Learning&quot;)
+.master(&quot;Local&quot;)
+.getOrCreate()
+</pre>
+<p style="text-align:justify;">We are using <code>Local</code> mode for learning besides this, it supports deployment on several <code>Cluster</code> modes:</p>
+<ul>
+<li><a href="https://spark.apache.org/docs/latest/spark-standalone.html">Standalone Deploy Mode</a></li>
+<li><a href="https://spark.apache.org/docs/latest/running-on-mesos.html">Apache Mesos</a></li>
+<li><a href="https://spark.apache.org/docs/latest/running-on-yarn.html">Hadoop YARN</a></li>
+</ul>
+<p style="text-align:justify;"> More about cluster architectural knowledge can be studied at <a href="https://kshitij-kuls.com/2018/01/04/apache-spark-2/" target="_blank" rel="noopener">Spark official website</a>.</p>
+<p style="text-align:justify;">Our focus will be on the usage and practical implementation which is quite scattered all over the internet. So let&#8217;s get back to an example. There are certain properties you need to define for the creation of Spark Session.</p>
+<table class="table">
+<tbody>
+<tr>
+<th>Function</th>
+<th>Usage</th>
+</tr>
+<tr>
+<td><strong>appName</strong>(<em>name</em>)</td>
+<td style="text-align:justify;">
+<blockquote><p>Define the name of an application, which will be shown on spark web UI.</p></blockquote>
+</td>
+</tr>
+<tr>
+<td><strong>master</strong>(<em>master</em>)</td>
+<td style="text-align:justify;">
+<blockquote><p>Sets the Spark master URL to connect to, such as &#8220;local&#8221; to run locally, &#8220;local[4]&#8221; to * run locally with 4 cores, or &#8220;spark://master:7077&#8221; to run on a Spark standalone cluster.</p></blockquote>
+</td>
+</tr>
+<tr>
+<td><strong>enableHiveSupport</strong>()</td>
+<td style="text-align:justify;">
+<blockquote><p>This will enable hive support by getting connected to Hive Metastore. (We will learn more about this in Spark-SQL tutorial).</p></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align:justify;">Whole spark revolve around <strong>RDDS</strong> (<em>resilient distributed dataset), </em>these are fault-tolerant elements collection, which can be processed in parallel.</p>
+<p>&nbsp;</p>
+<p><img data-attachment-id="178" data-permalink="https://kshitij-kuls.com/2018/01/04/apache-spark-2/screen-shot-2561-01-16-at-11-08-48-pm-png/" data-orig-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg" data-orig-size="2022,1058" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;Picasa&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;1516118961&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screen Shot 2561-01-16 at 11.08.48 PM.png" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg?w=300" data-large-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg?w=736" class="alignnone size-full wp-image-178" src="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg?w=736" alt="Screen Shot 2561-01-16 at 11.08.48 PM.png.jpg" srcset="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg?w=736 736w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg?w=1472 1472w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg?w=150 150w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg?w=300 300w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg?w=768 768w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg?w=1024 1024w" sizes="(max-width: 736px) 100vw, 736px"   /></p>
+<p style="text-align:justify;">RDD is a logical reference to a distributed dataset across many servers in the cluster.</p>
+<p>There are two ways of creating RDD:</p>
+<ol>
+<li><strong>Parallelizing the existing components in driver program.<br />
+</strong></p>
+<pre class="brush: scala; title: ; notranslate">
+val collection = Seq(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;)
+val rdd = spark.sparkContext.parallelize(data)
+</pre>
+<p>Spark will create partitions and spark will run 1 task per partition and hence more tasks, more parallelism, and each task will engage 1 core of an executor machine and hence more cores will lead to more tasks, which will lead to having more parallelism.<br />
+Although spark will create partitions automatically on the basis of a cluster but still a user can provide his own partition number as the second parameter of a parallelize function (e.g..<code>spark.sparkContext.parallelize(data, 10))</code></li>
+<li><strong>External Datasets.</strong>
+<pre class="brush: scala; title: ; notranslate">
+val rdd = spark.sparkContext.textFile(&quot;input_data.txt&quot;)
+</pre>
+<p>Spark can create distributed datasets from any storage source supported by Hadoop, including your local file system, HDFS, Cassandra, HBase, <a href="http://wiki.apache.org/hadoop/AmazonS3">Amazon S3</a>, etc. Spark supports text files, <a href="http://hadoop.apache.org/common/docs/current/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html">SequenceFiles</a>, and any other Hadoop <a href="http://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/InputFormat.html">InputFormat</a>.</li>
+</ol>
+<p>RDD supports two major operations:</p>
+<ol>
+<li><strong>Transformation</strong>: If a method is responsible for the modification in existing partition then that particular operation is basically a transformation.</li>
+<li><strong>Action</strong>: If a method is demanding to get resultant of all transformation so far then it&#8217;s surely an action.<strong>Example:</strong>
+<pre class="brush: scala; title: ; notranslate">
+case class Data(name: String, id: Int, age: Int)
+case class DataTransform(first_name: String, last_name: String, id: Int, age: Int)
+
+val data = Seq(
+Data(&quot;Ram Kumar&quot;, 1201, 24),
+Data(&quot;Mukesh Beil&quot;, 1202, 24),
+Data(&quot;Ramesh Kumar&quot;, 1203, 25),
+Data(&quot;Sham Jain&quot;, 1204, 25),
+Data(&quot;Puja Singh&quot;, 1205, 20)
+)
+//Parallelizing data
+val rdd = sc.parallelize(data)
+
+//Transformation =&amp;amp;gt; Splitting name to first and last name
+val rdd1 = rdd.map(x =&amp;amp;gt; {
+val name = x.name.split(&quot; &quot;)
+DataTransform(name.head, name.last, x.id, x.age)
+})
+
+//Transformation =&amp;amp;gt; Filtering people having age greater than 21
+val rdd2 = rdd1.filter(_.age &amp;amp;gt;= 21)
+
+//Action: To count all the rows of transformed RDD
+val numberOfRows = rdd2.count()
+</pre>
+</li>
+</ol>
+<p style="text-align:justify;">Here are some features of RDD as follow:</p>
+<ol>
+<li style="text-align:justify;"><strong>Fault-Tolerant</strong>: If a partition of RDD gets lost, then it has enough information to recompute that partition since spark log all transformations across all machines.</li>
+<li style="text-align:justify;"><strong>Data-Storage</strong>: RDD&#8217;s are distributed in form of partitions and this can be either on memory or on disk as well (it depends on the memory allocation). If it has enough memory to hold all partitions in memory then keep on main-memory else it will spill out the partitions to the disk.</li>
+<li style="text-align:justify;"><strong>Immutable</strong>: Every time a new RDD will be generated on every transformation, this helps in achieving consistency in computation.</li>
+<li style="text-align:justify;"><strong>Coarse-grained operations</strong>: It supports operations which can be applied to the whole dataset like groupBy, map or a filter.</li>
+<li style="text-align:justify;"><strong>Lazy evaluations</strong>: Spark prepare a lineage, a lineage is basically a DAG (Direct Acyclic Graph), it&#8217;s a graph of operations to be performed in order, here is the DAG described for an example shown above. A DAG is continuous until there is no action. In our case <strong>count()</strong> is an action, hence this whole pipeline will be called when <strong>count()</strong> action is invoked.<img loading="lazy" data-attachment-id="185" data-permalink="https://kshitij-kuls.com/2018/01/04/apache-spark-2/screen-shot-2561-01-17-at-7-32-35-am/" data-orig-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-7-32-35-am.png" data-orig-size="614,790" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screen Shot 2561-01-17 at 7.32.35 AM" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-7-32-35-am.png?w=233" data-large-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-7-32-35-am.png?w=614" class="  wp-image-185 aligncenter" src="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-7-32-35-am.png?w=269&#038;h=346" alt="Screen Shot 2561-01-17 at 7.32.35 AM.png" width="269" height="346" srcset="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-7-32-35-am.png?w=269&amp;h=346 269w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-7-32-35-am.png?w=538&amp;h=692 538w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-7-32-35-am.png?w=117&amp;h=150 117w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-7-32-35-am.png?w=233&amp;h=300 233w" sizes="(max-width: 269px) 100vw, 269px" /><br />
+<blockquote><p>With the help of this DAG, a spark can recompute a damaged partition since all the information about a particular transform along with the connectivity to another transformations resides in a DAG.</p></blockquote>
+<p>&nbsp;</li>
+</ol>
+<h3>Checkpoint</h3>
+<p style="text-align:justify;">Another beauty of spark is it will club all the transformation from a single job to 1 transformation and hence only 1-time scanning will be done, but if you have very complex transformation then it can be a bit non-performing operation in case of a failure because to recompute spark will go over all the transformation back again.<br />
+To get rid of this issue we can use <strong>Checkpoint</strong> in spark.</p>
+<p style="text-align:justify;">A checkpoint will break a DAG and save the output after executing transformation until this point, hence even if any failure occurs recomputing will be done from this point.</p>
+<h3>Cache/Persist</h3>
+<p>Let&#8217;s take an example:</p>
+<ol>
+<li><strong>Without cache</strong>
+<pre class="brush: scala; title: ; notranslate">
+case class Data(name: String, id: Int, age: Int)
+case class DataTransform(first_name: String, last_name: String, id: Int, age: Int)
+
+val data = Seq(
+Data(&quot;Ram Kumar&quot;, 1201, 24),
+Data(&quot;Mukesh Beil&quot;, 1202, 24),
+Data(&quot;Ramesh Kumar&quot;, 1203, 25),
+Data(&quot;Sham Jain&quot;, 1204, 25),
+Data(&quot;Puja Singh&quot;, 1205, 20)
+)
+//Parallelizing data
+val rdd = sc.parallelize(data)
+
+//Transformation =&gt; Splitting name to first and last name
+val rdd1 = rdd.map(x =&gt; {
+val name = x.name.split(&quot; &quot;)
+DataTransform(name.head, name.last, x.id, x.age)
+})
+
+//Transformation =&gt; Filtering people having age greater than or equal to 21
+val rdd2 = rdd1.filter(_.age &gt;= 21)
+
+//Action =&gt; To save output in a text file
+rdd2.saveAsTextFile(&quot;output_&gt;=21&quot;)
+
+//Transformation =&gt; Filtering people having age lesser than 21
+val rdd3 = rdd1.filter(_.age &lt; 21)
+
+//Action =&gt; To save output in a text file
+rdd3.saveAsTextFile(&quot;output&lt;21&quot;)
+</pre>
+<p style="text-align:justify;"><img loading="lazy" data-attachment-id="192" data-permalink="https://kshitij-kuls.com/2018/01/04/apache-spark-2/screen-shot-2561-01-17-at-8-55-33-am-2/" data-orig-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png" data-orig-size="1628,1340" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screen Shot 2561-01-17 at 8.55.33 AM" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png?w=300" data-large-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png?w=736" class="aligncenter size-full wp-image-192" src="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png?w=1080" alt="Screen Shot 2561-01-17 at 8.55.33 AM.png" width="540" height="445" srcset="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png?w=1080 1080w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png?w=540 540w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png?w=150 150w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png?w=300 300w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png?w=768 768w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png?w=1024 1024w" sizes="(max-width: 540px) 100vw, 540px" /><br />
+As it&#8217;s clearly visible rdd1 is getting calculated 2 times because it&#8217;s getting used independently by 2 different filters. The problem is spark remove RDD once it gets used.</p>
+</li>
+<li><strong>With Cache</strong>
+<pre class="brush: scala; title: ; notranslate">
+case class Data(name: String, id: Int, age: Int)
+case class DataTransform(first_name: String, last_name: String, id: Int, age: Int)
+
+val data = Seq(
+Data(&quot;Ram Kumar&quot;, 1201, 24),
+Data(&quot;Mukesh Beil&quot;, 1202, 24),
+Data(&quot;Ramesh Kumar&quot;, 1203, 25),
+Data(&quot;Sham Jain&quot;, 1204, 25),
+Data(&quot;Puja Singh&quot;, 1205, 20)
+)
+//Parallelizing data
+val rdd = sc.parallelize(data)
+
+//Transformation =&gt; Splitting name to first and last name
+val rdd1 = rdd.map(x =&gt; {
+val name = x.name.split(&quot; &quot;)
+DataTransform(name.head, name.last, x.id, x.age)
+})
+
+rdd1.cache()
+
+//Transformation =&gt; Filtering people having age greater than or equal to 21
+val rdd2 = rdd1.filter(_.age &gt;= 21)
+
+//Action =&gt; To save output in a text file
+rdd2.saveAsTextFile(&quot;output_&gt;=21&quot;)
+
+//Transformation =&gt; Filtering people having age lesser than 21
+val rdd3 = rdd1.filter(_.age &lt; 21)
+
+//Action =&gt; To save output in a text file
+rdd3.saveAsTextFile(&quot;output&lt;21&quot;)
+</pre>
+<p><img loading="lazy" data-attachment-id="193" data-permalink="https://kshitij-kuls.com/2018/01/04/apache-spark-2/screen-shot-2561-01-17-at-8-54-24-am/" data-orig-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png" data-orig-size="1586,1274" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screen Shot 2561-01-17 at 8.54.24 AM" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png?w=300" data-large-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png?w=736" class="aligncenter size-full wp-image-193" src="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png?w=1114" alt="Screen Shot 2561-01-17 at 8.54.24 AM.png" width="557" height="447" srcset="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png?w=1114 1114w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png?w=557 557w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png?w=150 150w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png?w=300 300w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png?w=768 768w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png?w=1024 1024w" sizes="(max-width: 557px) 100vw, 557px" /></li>
+</ol>
+<p style="text-align:justify;">This green color indicates that this RDD has been cached and hence, it&#8217;s not getting recomputed which save a lot of time.</p>
+<p style="text-align:justify;">Therefore, a caching is required for a situation when 1 RDD can be used multiple times because of the limitation that spark will destroy RDD after each usage.<br />
+There are 2 functions <strong>cache() </strong>and <strong>persist()</strong>, cache is simple caching on main memory whereas persist takes parameter to specify where the caching will be done: Disk Only,<br />
+Memory Only or Disk and Memory both.</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://kshitij-kuls.com/2018/01/04/apache-spark-2/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		
+		<media:content url="https://0.gravatar.com/avatar/3eb7eaa9690ab587122cc92adb65d0b7?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">kshitijk23</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-16-at-11-08-48-pm-png.jpg" medium="image">
+			<media:title type="html">Screen Shot 2561-01-16 at 11.08.48 PM.png.jpg</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-7-32-35-am.png" medium="image">
+			<media:title type="html">Screen Shot 2561-01-17 at 7.32.35 AM.png</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-55-33-am1.png?w=1080" medium="image">
+			<media:title type="html">Screen Shot 2561-01-17 at 8.55.33 AM.png</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-8-54-24-am.png?w=1114" medium="image">
+			<media:title type="html">Screen Shot 2561-01-17 at 8.54.24 AM.png</media:title>
+		</media:content>
+	</item>
+	</channel>
+</rss>

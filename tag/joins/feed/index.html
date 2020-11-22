@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>joins &#8211; Kshitij Kulshrestha</title>
+	<atom:link href="https://kshitij-kuls.com/tag/joins/feed/" rel="self" type="application/rss+xml" />
+	<link>https://kshitij-kuls.com</link>
+	<description>A DREAM WITHOUT A GOAL IS JUST A DREAM</description>
+	<lastBuildDate>Thu, 26 Sep 2019 02:28:16 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>http://wordpress.com/</generator>
+
+<image>
+	<url>https://kshitijkuls.files.wordpress.com/2018/01/cropped-whatsapp-image-2018-01-04-at-21-23-55.jpeg?w=32</url>
+	<title>joins &#8211; Kshitij Kulshrestha</title>
+	<link>https://kshitij-kuls.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<cloud domain='kshitij-kuls.com' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+<atom:link rel="search" type="application/opensearchdescription+xml" href="https://kshitij-kuls.com/osd.xml" title="Kshitij Kulshrestha" />
+	<atom:link rel='hub' href='https://kshitij-kuls.com/?pushpress=hub'/>
+	<item>
+		<title>Playing with joins in spark</title>
+		<link>https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/</link>
+					<comments>https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/#comments</comments>
+		
+		<dc:creator><![CDATA[Kshitij Kulshrestha]]></dc:creator>
+		<pubDate>Thu, 26 Sep 2019 02:13:03 +0000</pubDate>
+				<category><![CDATA[Apache Spark]]></category>
+		<category><![CDATA[Blogs]]></category>
+		<category><![CDATA[joins]]></category>
+		<category><![CDATA[optimization]]></category>
+		<category><![CDATA[pyspark]]></category>
+		<category><![CDATA[spark]]></category>
+		<category><![CDATA[Spark SQL]]></category>
+		<guid isPermaLink="false">http://kshitij-kuls.com/?p=366</guid>
+
+					<description><![CDATA[It&#8217;s a very common problem across whole data industry, people are struggling to reduce the time complexity, they bought big machines, they moved to spark but yet, there are few problems which can&#8217;t be solved by just using something, it requires a deeper insight to literally feel how the framework works and why it&#8217;s very... <a class="more-link" href="https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/#more-366">Continue Reading &#8594;</a>]]></description>
+										<content:encoded><![CDATA[<p style="text-align:justify;">It&#8217;s a very common problem across whole data industry, people are struggling to reduce the time complexity, they bought big machines, they moved to spark but yet, there are few problems which can&#8217;t be solved by just using something, it requires a deeper insight to literally feel how the framework works and why it&#8217;s very slow even with considerable amount of resources.</p>
+<p style="text-align:justify;">Here we&#8217;ll be discussing how spark treats a join and figure out how to join.</p>
+<p style="text-align:justify;"><span id="more-366"></span></p>
+<p style="text-align:justify;">Before we go into much detail, let&#8217;s discuss about varies strategies which spark uses to join.</p>
+<p style="text-align:justify;">There are 3 types of strategies:</p>
+<ol style="text-align:justify;">
+<li><strong>Sort-merge Join: </strong>The keys from both the sides are being sorted and then merged and then data is <strong>shuffled</strong> to bring down the same set of keys on same machine so that joining can be done.<br />
+<img data-attachment-id="371" data-permalink="https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/screenshot-2019-09-26-at-10-08-08-am/" data-orig-file="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png" data-orig-size="1046,1378" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screenshot 2019-09-26 at 10.08.08 AM" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=228" data-large-file="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=736" class=" size-full wp-image-371 aligncenter" src="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=736" alt="Screenshot 2019-09-26 at 10.08.08 AM.png" srcset="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=736 736w, https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=114 114w, https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=228 228w, https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=768 768w, https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png?w=777 777w, https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png 1046w" sizes="(max-width: 736px) 100vw, 736px"   /></li>
+<li><strong>Broadcast-hash Join: </strong>The smallest side is being broadcasted to each node wherever the largest side of data partition resides, then the joining takes place, this eliminates the shuffling process for bigger dataset.
+<p><img data-attachment-id="372" data-permalink="https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/spark_broadcast/" data-orig-file="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png" data-orig-size="528,797" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="spark_broadcast" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png?w=199" data-large-file="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png?w=528" class="alignnone size-full wp-image-372" src="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png?w=736" alt="spark_broadcast.png" srcset="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png 528w, https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png?w=99 99w, https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png?w=199 199w" sizes="(max-width: 528px) 100vw, 528px"   /></li>
+<li><strong>Shuffle-hash Join:</strong> This is similar to the join in map reduce, it doesn&#8217;t sort the data, it simply hash the keys of both datasets and shuffle the data to the nodes by <strong>(hash mod no. of executors)</strong>.</li>
+</ol>
+<p style="text-align:justify;">When both side datasets are too big, then it&#8217;s better to use <strong>Sort-merge join</strong> or <strong>Shuffle-hash join</strong> depending on the data locality.</p>
+<p style="text-align:justify;">After spark 2.3 release, spark made Sort merge join as the default strategy which can be disabled by setting ‘<strong class="ko ma">spark.sql.join.preferSortMergeJoin</strong>’ = <strong>false</strong>.</p>
+<p style="text-align:justify;"><strong>Broadcast-hash Join</strong></p>
+<p>Best suitable when one of the dataset is small [about 1 GB]. There are 2 way of achieving this:</p>
+<ol>
+<li>By setting <strong class="ko ma">spark.sql.autoBroadcastJoinThreshold</strong>, this parameter takes value in bytes and default is 10 MB, spark check the size of dataset and it found it to be lesser than the threshold value then it will broadcast this dataset automatically to all the nodes wherever big dataset partitions reside.
+<p><strong>**</strong> Sometimes it may happen that spark may not be able to figure out the size of data correctly, which may end up in <strong>sort-merge join</strong>, so to get rid if this, one can <strong>persist</strong> the dataset on <strong>disk and memory,</strong> by doing this spark will know the actual size of data and will choose the strategy accordingly.</li>
+<li><strong>Forcing spark to broadcast</strong>, spark has also provided a functionality to broadcast a dataset forcefully, this approach is advisable only when we are sure about the data sizing.</li>
+</ol>
+<p>&nbsp;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://kshitij-kuls.com/2019/09/26/playing-with-joins-in-spark/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+		
+		<media:content url="https://0.gravatar.com/avatar/3eb7eaa9690ab587122cc92adb65d0b7?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">kshitijk23</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2019/09/screenshot-2019-09-26-at-10.08.08-am.png" medium="image">
+			<media:title type="html">Screenshot 2019-09-26 at 10.08.08 AM.png</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2019/09/spark_broadcast.png" medium="image">
+			<media:title type="html">spark_broadcast.png</media:title>
+		</media:content>
+	</item>
+	</channel>
+</rss>

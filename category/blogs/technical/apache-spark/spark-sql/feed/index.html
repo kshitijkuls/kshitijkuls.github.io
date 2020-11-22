@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>Spark SQL &#8211; Kshitij Kulshrestha</title>
+	<atom:link href="https://kshitij-kuls.com/category/blogs/technical/apache-spark/spark-sql/feed/" rel="self" type="application/rss+xml" />
+	<link>https://kshitij-kuls.com</link>
+	<description>A DREAM WITHOUT A GOAL IS JUST A DREAM</description>
+	<lastBuildDate>Wed, 17 Jan 2018 15:46:48 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>http://wordpress.com/</generator>
+
+<image>
+	<url>https://kshitijkuls.files.wordpress.com/2018/01/cropped-whatsapp-image-2018-01-04-at-21-23-55.jpeg?w=32</url>
+	<title>Spark SQL &#8211; Kshitij Kulshrestha</title>
+	<link>https://kshitij-kuls.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<cloud domain='kshitij-kuls.com' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+<atom:link rel="search" type="application/opensearchdescription+xml" href="https://kshitij-kuls.com/osd.xml" title="Kshitij Kulshrestha" />
+	<atom:link rel='hub' href='https://kshitij-kuls.com/?pushpress=hub'/>
+	<item>
+		<title>Apache Spark SQL</title>
+		<link>https://kshitij-kuls.com/2018/01/06/apache-spark/</link>
+					<comments>https://kshitij-kuls.com/2018/01/06/apache-spark/#respond</comments>
+		
+		<dc:creator><![CDATA[Kshitij Kulshrestha]]></dc:creator>
+		<pubDate>Sat, 06 Jan 2018 08:52:50 +0000</pubDate>
+				<category><![CDATA[Apache Spark]]></category>
+		<category><![CDATA[Blogs]]></category>
+		<category><![CDATA[Spark SQL]]></category>
+		<guid isPermaLink="false">http://kshitij-kuls.com/?p=92</guid>
+
+					<description><![CDATA[The previous systems which were developed for Big Data applications, such as MapReduce, offered a strong, but low-level procedural programming interface. By carrying up the development of the new systems for a better user experience, multiple techniques have been introduced to the relational interface, such as Pig, Hive, and Shark. These Systems used declarative queries... <a class="more-link" href="https://kshitij-kuls.com/2018/01/06/apache-spark/#more-92">Continue Reading &#8594;</a>]]></description>
+										<content:encoded><![CDATA[<div class="page" title="Page 1"></div>
+<p style="text-align:justify;">The previous systems which were developed for Big Data applications, such as MapReduce, offered a strong, but low-level procedural programming interface. By carrying up the development of the new systems for a better user experience, multiple techniques have been introduced to the relational interface, such as Pig, Hive, and Shark.</p>
+<p style="text-align:justify;"><span id="more-92"></span>These Systems used declarative queries for providing richer optimizations. To get users out of the confusion of picking up only one system (either relational systems or procedural system), Spark SQL a new model of the Spark Ecosystem has been developed for integrating relational processing with procedural API.</p>
+<p style="text-align:justify;">Spark SQL provides the facility to let users use intermix of two models. This facility is achieved by two contributions. First is the DataFrame API which is a component of Spark. DataFrame has a facility to evaluate operations in a lazy manner so that it can perform relational optimizations. Second is the Spark SQL which provides an expendable optimizer called Catalyst. This optimizer makes it easy to add optimization rules, data sources and data types for domains such as machine learning.</p>
+<p style="text-align:justify;">DataFrame API is more efficient and provides more functionality over Spark&#8217;s existing traditional APIs. This API is a collection of structured records and can be created directly from the distributed collection of objects of Spark. All the operations of Spark SQL go through the catalyst optimizer. The Optimizer uses the characteristics of the Scala programming language. Spark SQL provides a number of benefits including richer optimizations. If Spark SQL processes the SQL queries which contains Joins and Filters.</p>
+<h3>PROGRAMMING INTERFACE</h3>
+<p style="text-align:justify;">
+DataFrame API is the contribution which made possible to mix up procedural and relational processing. The SQL interface, which is provided by Spark SQL, is accessible by command line console or JDBC/ODBC.</p>
+<p style="text-align:justify;">If the user wants to interact with Spark SQL then there are multiple ways inclusive of SQL and Dataset API. The same execution engine is used for calculating the results without caring about the API/language users are using for computation. This facility allows developers to easily switch back and forth between different APIs according to the proper way to express a given transformation.</p>
+<p style="text-align:justify;">Here we discuss following interface points by which users are able to utilize the richest facilities of the Spark SQL query engine.</p>
+<p style="text-align:justify;"><em><strong>1. SQL</strong></em><br />
+One of the most technical purposes of Spark SQL is to execute SQL queries in Spark. Spark SQL behaves as a distributed query engine when a user uses its JDBC/ODBC or Spark SQL CLI to execute SQL queries. In this manner, users or applications keep in touch with Spark SQL straight away to run SQL queries, without writing any code. When SQL queries are executed by using Spark SQL CLI or over its JDBC/ODBC then DataFrame/Datasets are returned as a result.</p>
+<p style="text-align:justify;"><em><strong>2. Dataframe API</strong></em><br />
+DataFrame API is a distributed collection of rows and it is a tabular data abstraction of Spark SQL, equivalent to the tables of the relational database. Manipulation in the DataFrames is done in the same way as it is performed in native Spark RDDs [6]. For providing the optimized execution, it supports for several relational operators and it keeps track of their schema.<br />
+DataFrames are the collection of the column type. DataFrame can be built from tables (based on external data sources), from structured file formats (Parquet, Avro etc.) or from Java/Python object&#8217;s native RDD. Avro, a self-describing binary format for nested data. Parquet, a columnar file format for which we support column pruning as well as filters. These constructed DataFrames can be manipulated by using the clauses such as Where or Group By.</p>
+<p style="text-align:justify;">DataFrame can be assumed as the native RDDs because users are able to apply procedural programming because of it. It is much powerful than RDDs because of two features which are Custom Memory Management and Optimized Execution Plan. Spark&#8217;s DataFrames evaluates in a lazy manner (like RDD), so after the logical planning, It does not execute until a specific operation such as saveAs, is called by the users.</p>
+<p>To illustrate, a Scala code is written for defining DataFrame:</p>
+<pre class="brush: scala; title: ; notranslate">
+val employee = spark.table(&quot;employee&quot;)
+val average = employee. where(employee(&quot; salary &quot;) &amp;amp;amp;amp;gt; 20000)
+println(average.count())
+</pre>
+<p style="text-align:justify;">
+In this code, employee and average are DataFrames. Finally, each DataFrame reflects a logical plan (i.e. read the employee table and filter for salary &gt;20000). When Count (output operation) is called, Spark SQL constructs a physical plan to compute the final result. Some optimizations might be done like scanning of the “salary” column only if data is stored in columnar format. DataFrame supports almost all relation operations, so users can apply these operations on DataFrames by using Domain Specific Language (DSL).<br />
+<strong>Let’s understand it by the following example:</strong></p>
+<pre class="brush: scala; title: ; notranslate">
+teacher.join(subject, teacher(&quot;sub_ID&quot;) === subject (&quot;id&quot;))
+.where(teacher(&quot;gender&quot;) === &quot;male&quot;)
+.groupBy (subject (&quot;id&quot;), subject (&quot;name&quot;))
+.agg (count (&quot;name&quot;))
+</pre>
+<p style="text-align:justify;">Aside from using DSL on DataFrame for applying operations, DataFrame can also be saved as a temporary table in the system catalog. Then we can apply SQL queries to these temp tables.<br />
+<strong>Below code illustrates it:</strong></p>
+<pre class="brush: scala; title: ; notranslate">
+val averageDF = employee.where (employee (&quot;salary&quot;) &amp;amp;amp;amp;lt; 20000)
+averageDF.registerTempTable(&quot;average&quot;)
+spark.sql (&quot;SELECT count (*), avg (salary) FROM average&quot;)
+</pre>
+<p style="text-align:justify;">
+<em><strong>3. Datasets API</strong></em><br />
+The dataset is an abstraction in Spark SQL. For the result&#8217;s aspects of users, It is equivalent to DataFrame but it differs when it comes about the performance and the way in which they get executed. In other words, we can say that Dataset is an extension of DataFrame API and it is more developer friendly in comparison with DataFrame.Datasets also take the benefits of Catalyst optimizer by revealing the expressions and data fields to the SQL query planner and it also grasps the fast in-memory encoding of Tungsten.</p>
+<p style="text-align:justify;">Datasets are designed to work alongside the existing RDD, but efficiency improvement takes place when data can be represented in a structured format. A dataset object is basically a strongly type-safe API which is immutable in nature. These objects are mapped to a relational schema.</p>
+<p style="text-align:justify;">A new concept of Dataset makes it more efficient that is “encoder”. It converts between JVM objects and tabular representation. The runtime code generation mechanism is used by the encoders to construct custom bytecode for datasets during serialization and deserialization. In other side, DataFrames are transformed into Java bytecode during serialization/deserialization. Because of the presence of the Encoders, custom bytecodes are less bulky than Java bytecode. So it makes datasets more efficient than DataFrame.</p>
+<p style="text-align:justify;">Encoders keep track of the process that our data match with expected schema and provide error messages to the users before user attempt to incorrectly process a huge quantity of data. Bytecode is produced by encoders to handle off-heap data and without de-serializing an overall object, encoders provide on-demand access to each attribute. A concept of “Case Class” is used for a dataset to define the structure of the schema. The RDDs, which contain case classes, can be converted into DataFrames by using the Scala interface. All the arguments of case class are read by using reflection and these arguments become the column names.</p>
+<h3>SHUFFLING</h3>
+<p style="text-align:justify;">
+Apache Spark is a most technically challenged and an open-source big data processing engine which yields the extra benefits over Map Reduce. Spark Driver and Spark Workers are responsible for executing the tasks related to the job. The driver keeps track and controls the workflow and Workers are responsible for launching the executors for each part of the job which is submitted to the Spark Driver. RDD, Serializer, Scheduler, and Shuffling are the main components of Spark Driver. Here we discuss only shuffling in detail.</p>
+<p style="text-align:justify;">Shuffling is one of the key reasons for optimization in Spark. It is a phase of Spark Driver. It is a process of partitioning data (map side shuffle) and aggregating (reduce side shuffle) the intermediate or resultant data during the computation of the operations. Shuffling is mostly considered as a part of reducing phase. In shuffling phase, data is converted into a large number of partitions and according to the scenario, a large number of shuffle files are also created. Shuffling is basically a process to maintain a shuffle file for each partition. Normally in Spark, a number of shuffle file generated during shuffling, is <em><strong>M*R</strong></em>.</p>
+<p>Here,<br />
+<em><strong>M= total no of map tasks </strong></em><br />
+<em><strong>R= total no of reduce tasks</strong></em></p>
+<p style="text-align:justify;">By using a consolidate feature of Spark, a number of the shuffle files is equal to <em><strong>E*C*R/T</strong> </em>rather than per Map task M. Each Machine has to take care about <em><strong>C*R</strong></em> number of shuffle files in place of <em><strong>M*R</strong></em>. By using this feature, instead of generating a new file for each reducer, a group of output files is created. During the generation of the output data by map tasks, it appeals to a group of R files from this group. As soon as the map task gets finished, this group of R files is returned back to the group by the Map task. As <em><strong>C/T</strong></em> tasks are executed by every executor in a parallel fashion. After completing the foremost <em><strong>C/T</strong> </em>parallel “map” tasks, each following “map” task would reuse an existing group from this group. By doing so, no of shuffle files created here will be less than <em><strong>M*R</strong></em> no of files. Shuffling is improved in Spark by using the Sort-based technique for particular scenarios.</p>
+<p>Here,<br />
+<em><strong>E=total no of executors in cluster </strong></em><br />
+<em><strong>C=total no of cores per executor </strong></em><br />
+<em><strong>T=total no of CPUs for one task</strong></em></p>
+<p>For understanding clearly, let’s consider the shuffling on Map side and Reduce side:</p>
+<p style="text-align:justify;"><em><strong>1. Map Side Shuffle</strong></em><br />
+Every map task in Spark writes a shuffle file for each reducer. Now all <em><strong>M*R</strong></em> files have to deliver the corresponding reducer, which could produce significant overheads. So Spark provides the facility to compress the map outputs and significantly reduces the risk of occurring out-of-memory error.</p>
+<p style="text-align:justify;"><em><strong>2. Reduce Side Shuffle</strong></em><br />
+All the output data of map task come to the reduce side and each executor (which is dedicated to the reduce task) keeps the relevant data and this output data passes to all reduce task and final results are calculated at reduce side. Spark needs all shuffled data per Reduce task to settle down in memory when the Reduce task demands it. This situation occurs where the reducer task demands all the shuffled data for a GroupByKey or a ReduceByKey operation, for instance, If the memory required by a Reduce task exceeds the limit, which is allocated earlier, then an out of memory exception is thrown and the entire job gets aborted. To avoid this issue, the application must specify a high enough value for R, possibly through trial and error. So Shuffling can be comprehended as a reallocation of data among several Spark stages. It can be clarified in figure 1. &#8220;Shuffle Write&#8221; can be interpreted as a sum of all written serialized data on all executors before transmitting (normally at the extremity of a stage) and &#8220;Shuffle Read&#8221; is the total amount of reading serialized data on all executors at the starting.</p>
+<p><img loading="lazy" data-attachment-id="243" data-permalink="https://kshitij-kuls.com/2018/01/06/apache-spark/screen-shot-2561-01-17-at-10-15-28-pm-2/" data-orig-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png" data-orig-size="1110,864" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screen Shot 2561-01-17 at 10.15.28 PM" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=300" data-large-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=736" class="  wp-image-243 aligncenter" src="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=418&#038;h=326" alt="Screen Shot 2561-01-17 at 10.15.28 PM.png" width="418" height="326" srcset="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=418&amp;h=326 418w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=836&amp;h=652 836w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=150&amp;h=117 150w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=300&amp;h=234 300w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=768&amp;h=598 768w" sizes="(max-width: 418px) 100vw, 418px" /></p>
+<p style="text-align:center;"><em><strong>Shuffle Write and Shuffle Read during Shuffling</strong></em></p>
+<h3>QUERY PLANNING IN SPARK SQL</h3>
+<p style="text-align:justify;">
+Catalyst Optimizer is designed in such a way so that new optimization techniques and features can be added easily to Spark SQL, particularly for regulating various problems with big data, like with semistructured data or advanced analytics. Developers can enhance the optimizer like, by adding a data source specific rules that can push filter or aggregation into external storage systems, or support for new data types. A tree is the main datatype in a catalyst which is a collected from of node objects. These objects are immutable and can be altered by functional transformations. Spark SQL starts it’s processing either from an Abstract Syntax Tree (AST) of a SQL query or from a dataframe object. AST is computed by SQL parser and dataframe objects are returned by API. There are specific libraries for relational processing and some sets of rules which are used for tree transformation. Rules may need to execute multiple times for complete transformation of a tree. Catalyst&#8217;s tree transformation is used in different phases of query execution. The phases are: Analysis, Logical Optimization, Physical Planning, and Code Generation.</p>
+<p>Here we describe each phase:</p>
+<p><img loading="lazy" data-attachment-id="244" data-permalink="https://kshitij-kuls.com/2018/01/06/apache-spark/screen-shot-2561-01-17-at-10-15-56-pm-2/" data-orig-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png" data-orig-size="1162,766" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screen Shot 2561-01-17 at 10.15.56 PM" data-image-description="" data-medium-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=300" data-large-file="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=736" class="aligncenter  wp-image-244" src="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=466&#038;h=307" alt="Screen Shot 2561-01-17 at 10.15.56 PM.png" width="466" height="307" srcset="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=466&amp;h=307 466w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=932&amp;h=614 932w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=150&amp;h=99 150w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=300&amp;h=198 300w, https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=768&amp;h=506 768w" sizes="(max-width: 466px) 100vw, 466px" /></p>
+<p style="text-align:center;"><em><strong>Phases of query planning in Spark SQL</strong></em></p>
+<p style="text-align:justify;">Abstract Syntax Tree and Dataframe objects can have some unresolved attribute references or relations. Let’s consider a query: Select col1 from table1. In this query, the type of col1 or whether the name of col1 is correct, is not known until the parser looks up for the table1 and the tree containing unresolved references is called an “unresolved logical plan”. An analysis phase takes an unresolved plan as an input and convert it into resolved logical plan by applying some rules to analyzer.<br />
+Logical optimization is applied to the analyzed logical plan. It is a cost-based optimization. Some rules are applied during optimization on logical plans &#8211; such as constant folding, projection pruning, predicate pushdown, null propagation, Boolean expression simplification, and other rules.<br />
+Physical planning is the third phase which takes optimized logical plan as an input. In this phase, one or more physical plan is created by applying some physical operators and the best plan is selected by using cost-based optimization. Some rule-based optimizations are also applied by this phase. Beside this projection or predicate push down are also performed in this phase.<br />
+Code generation is the final phase of query optimization in which Java bytecode is generated by using a great feature of Scala programming language i.e. quasi-quote. Generated Java bytecode runs on each machine.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://kshitij-kuls.com/2018/01/06/apache-spark/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+		
+		<media:content url="https://0.gravatar.com/avatar/3eb7eaa9690ab587122cc92adb65d0b7?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">kshitijk23</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-28-pm1.png?w=980" medium="image">
+			<media:title type="html">Screen Shot 2561-01-17 at 10.15.28 PM.png</media:title>
+		</media:content>
+
+		<media:content url="https://kshitijkuls.files.wordpress.com/2018/01/screen-shot-2561-01-17-at-10-15-56-pm1.png?w=980" medium="image">
+			<media:title type="html">Screen Shot 2561-01-17 at 10.15.56 PM.png</media:title>
+		</media:content>
+	</item>
+	</channel>
+</rss>
